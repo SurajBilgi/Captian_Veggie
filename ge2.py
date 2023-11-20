@@ -1,3 +1,11 @@
+# Mihir Jain
+# Nov 20th 2023
+# Game Engine For the game
+
+
+# TODO - Comments and uncomment operational and Final Testing
+# should rabbits move when invalid input by user?
+# what if both rabbit and captain move to the same index
 
 import os
 import pickle
