@@ -7,16 +7,16 @@
 # should rabbits move when invalid input by user?
 # what if both rabbit and captain move to the same index
 
+# Importing the Libraries and the Class functions
 import os
 import pickle
 import random
 from Captain import Captain
 from FieldInhabitant import FieldInhabitant
 from Rabbit import Rabbit
-
 from Veggie import Veggie
 
-
+# Instantiation of the Game Engine Class
 class GameEngine:
     NUMBEROFVEGGIES = 30
     NUMBEROFRABBITS = 5
@@ -29,8 +29,8 @@ class GameEngine:
         self.possible_veggies = []
         self.score = 0
 
+    # Function to Initialize Veggies
     def init_veggies(self):
-        import os
         filename = input("Enter the name of the file: ")
         try:
             while not os.path.exists(filename):
@@ -63,6 +63,7 @@ class GameEngine:
             print("Exception ", str(e))
             return -1
 
+    # Function to Initialize Captian
     def init_captain(self):
         rows, cols = len(self.field), len(self.field[0])
         while True:
@@ -76,6 +77,7 @@ class GameEngine:
 
                 break
 
+    # Funcion to Initialize Rabbits
     def init_Rabbits(self):
         rows, cols = len(self.field), len(self.field[0])
         added_rabbits = 0
@@ -90,16 +92,19 @@ class GameEngine:
                 print(
                     f"Rabbit added at ({random_row}, {random_col}) - Total: {added_rabbits}/{self.NUMBEROFRABBITS}")
 
+    # Function to Initialize the Game
     def initalizeGame(self):
         self.init_veggies()
         self.init_captain()
         self.init_Rabbits()
 
+    # Function to Count remaining Veggies
     def remainingVeggies(self):
         count_veggies = sum(isinstance(item, Veggie)
                             for row in self.field for item in row if item is not None)
         return count_veggies
 
+    # Printing Introduction for the Project
     def intro(self):
         print("Welcome to Captain Veggie!")
         print("The rabbits have invaded your garden and you must harvest "
@@ -133,6 +138,7 @@ class GameEngine:
     def getScore(self):
         return self.score
 
+    # Function to Move Rabbits Randomly
     def moveRabbits(self):
         rows = len(self.field)
         cols = len(self.field[0])
@@ -207,6 +213,7 @@ class GameEngine:
         else:
             print("The movement is outside the boundaries. Cannot move.")
 
+    # Functions to move the Captain
     def moveCaptain(self):
         direction = input(
             "Enter direction to move the Captain object (Up(W), Down(S), Left(A), Right(D)): ")
@@ -224,6 +231,7 @@ class GameEngine:
         else:
             print("Invalid input. Please enter W, A, S, or D.")
 
+    # Function to be executed when the Game is Over
     def gameOver(self):
         print("Game Over!")
         print("The vegetables harvested:")
@@ -231,6 +239,7 @@ class GameEngine:
             print(veggie.get_name())
         print(f"Your score: {self.score}")
 
+    # Function to calculate the High Score
     def highScore(self):
         high_scores = []
         if os.path.exists(self.HIGHSCOREFILE):

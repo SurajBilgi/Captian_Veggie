@@ -1,8 +1,11 @@
+# Author: Mihir Jain, Suraj S Bilgi
+# Date: 25-11-2023
+# Description: The Main code to start the Project
+
+# Importing the GameEngine Class
 from GameEngine import GameEngine
 
-
 def main():
-
     game = GameEngine()
 
     game.initalizeGame()

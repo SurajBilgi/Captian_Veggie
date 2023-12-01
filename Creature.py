@@ -1,6 +1,11 @@
+# Author: Mihir Jain, Suraj S Bilgi
+# Date: 25-11-2023
+# Description: A code to Create a class named Creature to handle the Data and Functionality 
+
+# Importing the FieldInhabitant Class
 from FieldInhabitant import FieldInhabitant
 
-
+# Instantiation of the Class Creature
 class Creature(FieldInhabitant):
     def __init__(self, x, y, symbol):
         super().__init__(symbol)

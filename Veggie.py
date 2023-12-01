@@ -1,6 +1,11 @@
+# Author: Mihir Jain, Suraj S Bilgi
+# Date: 25-11-2023
+# Description: A code to Create a class named Veggie to handle the Data and Functionality 
+
+# Importing the FieldInhabitant Class
 from FieldInhabitant import FieldInhabitant
 
-
+# Instantiation of the Class Veggie
 class Veggie(FieldInhabitant):
     def __init__(self, name, symbol, points):
         super().__init__(symbol)
