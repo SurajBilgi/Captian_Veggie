@@ -19,3 +19,6 @@ class Captain(Creature):
 
     def set_collected_veggies(self, new_veggies):
         self._collected_veggies = new_veggies
+
+    def remove5veggies(self):
+        self._collected_veggies = self._collected_veggies[:-5]

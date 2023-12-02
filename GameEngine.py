@@ -15,6 +15,7 @@ from Captain import Captain
 from FieldInhabitant import FieldInhabitant
 from Rabbit import Rabbit
 from Veggie import Veggie
+from Snake import Snake
 
 # Instantiation of the Game Engine Class
 class GameEngine:
@@ -92,11 +93,25 @@ class GameEngine:
                 print(
                     f"Rabbit added at ({random_row}, {random_col}) - Total: {added_rabbits}/{self.NUMBEROFRABBITS}")
 
+    def init_snake(self):
+        rows, cols = len(self.field), len(self.field[0])
+        while True:
+            random_row = random.randint(0, rows-1)
+            random_col = random.randint(0, cols-1)
+            if self.field[random_row][random_col] is None:
+                self.snake = Snake(random_row, random_col)
+                self.field[random_row][random_col] = self.snake
+
+                print(f"Snake added at ({random_row}, {random_col})")
+
+                break
+
     # Function to Initialize the Game
     def initalizeGame(self):
         self.init_veggies()
         self.init_captain()
         self.init_Rabbits()
+        self.init_snake()
 
     # Function to Count remaining Veggies
     def remainingVeggies(self):
@@ -164,6 +179,46 @@ class GameEngine:
                         self.field[new_x][new_y] = rabbit
                         rabbit.set_x(new_x)
                         rabbit.set_y(new_y)
+
+    def moveSnake(self):
+        captain_locx = self.captain.get_x()
+        captain_locy = self.captain.get_y()
+        rows = len(self.field)
+
+        snake_locx = self.snake.get_x()
+        snake_locy = self.snake.get_y()
+
+        snake_new_x, snake_new_y = snake_locx , snake_locy
+        if snake_locx > captain_locx:
+            snake_new_x, snake_new_y = self.snake.get_x() -1 , self.snake.get_y()
+
+        elif snake_locx < captain_locx:
+            snake_new_x, snake_new_y = self.snake.get_x() +1 , self.snake.get_y()
+
+        elif snake_locy > captain_locy:
+            snake_new_x, snake_new_y = self.snake.get_x() , self.snake.get_y() -1
+
+        elif snake_locy < captain_locy:
+            snake_new_x, snake_new_y = self.snake.get_x() , self.snake.get_y() +1
+
+        new_location = self.field[snake_new_x][snake_new_y]
+
+        if isinstance(new_location, Captain):
+            print("Snake has Caught you. Captain lost last 5 Vegetables")
+            self.field[snake_locx][snake_locy] = None
+            self.captain.remove5veggies()
+            self.init_snake()
+
+            # if (snake_new_x, snake_new_y) == (snake_locx , snake_locy):
+            #     print("Snake got ME")
+
+        if 0 <= snake_new_x < rows:
+            new_location = self.field[snake_new_x][snake_new_y]
+            if new_location is None:
+                self.field[snake_locx][snake_locy] = None
+                self.field[snake_new_x][snake_new_y] = self.snake
+                self.snake.set_x(snake_new_x)
+                self.snake.set_y(snake_new_y)
 
     def moveCptVertical(self, movement):
         current_x = self.captain.get_x()
